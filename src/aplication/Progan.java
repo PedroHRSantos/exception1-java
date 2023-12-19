@@ -19,10 +19,10 @@ public class Progan {
         System.out.print("Chack-out date (dd/MM/yyyy): " );
         Date checkout = sdf.parse(scan.next());
         Date now = new Date();
-        if(checkin.before(now) || checkout.before(now)){
+        if(checkin.before(now) || checkout.before(now)){ 
             System.out.println("error in reservation: Reservation dates fur update must be future dates. ");
         }
-        else if (!checkout.after(checkin)){
+        else if (!checkout.after(checkin)){ // se o checkout não(!) for depois que o checkin, ira executar esse if
             System.out.print("error in reservation: check out dat must be after chack-in date");
         }else{
             Reservation reservation = new Reservation(number, checkin, checkout);
@@ -35,13 +35,10 @@ public class Progan {
             System.out.print("Chack-out date (dd/MM/yyyy): " );
             checkout = sdf.parse(scan.next());
 
-            now = new Date();
-            if (checkin.before(now) || checkout.before(now)){
-                System.out.println("error in reservation: Reservation dates fur update must be future dates. ");
-            }else if(!checkout.after(checkin)){
-                 System.out.print("error in reservation: check out dat must be after chack-in date");
+            String error =  reservation.updateDates(checkin, checkout);
+            if (error != null){
+                System.out.println("Error in reservation: " + error);
             }else{
-                reservation.updateDates(checkin, checkout);
                 System.out.println("Reservation: " + reservation.toString());
             }
         }
